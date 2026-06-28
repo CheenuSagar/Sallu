@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🫙 Yaadein</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="fc"></canvas>
+<div id="cursor-outer"></div>
+<div id="cursor-inner"></div>
+<div id="cursor-emoji">🌸</div>
+
+<div class="sallu-sticker" id="sallu" onclick="salluClick()">
+  <span>🐱</span>
+  <span class="sallu-label">Sallu 🌸</span>
+</div>
+<div class="khi-bubble" id="khi-bubble">
+  <span id="khi-text">Khi khi khi! 😸</span>
+  <div class="khi-bubble-arrow"></div>
+</div>
+
+<nav id="nav">
+  <a href="index.html">🏠 Home</a>
+  <a href="story.html">🌸 Story</a>
+  <a href="gallery.html">🖼️ Gallery</a>
+  <a href="together.html">🫶 Hamare Pal</a>
+  <a href="message.html">💌 Letter</a>
+  <a href="quiz.html">💭 Quiz</a>
+  <a href="yaadein.html">🫙 Yaadein</a>
+  <a href="waqt.html">⏳ Waqt</a>
+  <a href="duaayein.html">🌟 Duaayein</a>
+  <a href="surprise.html">💍 Surprise</a>
+</nav>
+
+<button id="music-btn" onclick="toggleMusic()">🎵</button>
+<button id="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<audio id="bg-music" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<div id="lightbox">
+  <button id="lb-close" onclick="closeLightbox()">✕</button>
+  <button id="lb-prev" onclick="lbNav(-1)">‹</button>
+  <img id="lb-img" src="" alt="">
+  <button id="lb-next" onclick="lbNav(1)">›</button>
+  <div id="lb-cap"></div>
+</div>
+
+
+<section id="jar">
+  <div class="inner">
+    <h2 class="s-head reveal">🫙 Yaadein Ka Dabbe</h2>
+    <p class="s-sub reveal">Har card mein ek chhupa hua ehsaas hai — kholo aur dekho 💖</p>
+    <div class="jar-grid reveal" id="jar-grid"></div>
+  </div>
+</section>
+
+
+<footer>
+  <span class="footer-alien">👾</span>
+  Made with <span>💖</span> and real feelings &nbsp;·&nbsp; Sirf tumhare liye &nbsp;·&nbsp; Hamesha
+  <div class="footer-hearts">💕 🌸 ✨ 🌸 💕</div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+// mark active nav
+document.querySelectorAll('nav a').forEach(a=>{
+  if(a.getAttribute('href')==='yaadein.html') a.classList.add('active');
+});
+
+const MEM=[
+  {e:'🌅',tx:'Jab pehli baar tum mile the — ek normal subah ne zindagi badal di thi.',b:'🌸'},
+  {e:'😂',tx:'Ek baat pe itna hanse the dono — woh waqt freeze ho jaata toh acha tha.',b:'💫'},
+  {e:'🌙',tx:'Late night baatein jo kabhi khatam nahi hoti thi — woh sab dil ke kareeb hain.',b:'✨'},
+  {e:'☕',tx:'Bas ek acha message mil jaata tha din mein — aur poora din roshan ho jaata tha.',b:'💖'},
+  {e:'🎵',tx:'Kuch gane sunke tumhari yaad aati hai — aur main muskura deta hoon.',b:'🎀'},
+  {e:'💌',tx:'Bahut baar dil mein aaya kehna — aur alfaaz rukh gaye. Yeh page wahi baat hai.',b:'🌺'},
+  {e:'⭐',tx:'20 November 2021 — woh din sirf ek date nahi, ek turning point tha.',b:'💝'},
+  {e:'🌸',tx:'Tum jab genuinely kisi ki baat suno — toh insaan feel karta hai ki woh matter karta hai.',b:'💕'},
+];
+const grid=document.getElementById('jar-grid');
+MEM.forEach(m=>{
+  const card=document.createElement('div');
+  card.className='mem-card';
+  card.innerHTML=`<div class="mc-front"><span class="mc-emoji-big">${m.e}</span><span class="mc-tap-label">👆 Tap karke dekho</span></div><div class="mc-back-content" style="display:none;"><span class="mc-back-emoji">${m.b}</span><span class="mc-back-text">${m.tx}</span></div>`;
+  card.addEventListener('click',()=>{
+    const f=card.querySelector('.mc-front'),b=card.querySelector('.mc-back-content');
+    const show=f.style.display!=='none';
+    f.style.display=show?'none':'flex'; b.style.display=show?'flex':'none';
+  });
+  grid.appendChild(card);
+});
+
+</script>
+</body>
+</html>

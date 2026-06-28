@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🖼️ Gallery</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="fc"></canvas>
+<div id="cursor-outer"></div>
+<div id="cursor-inner"></div>
+<div id="cursor-emoji">🌸</div>
+
+<div class="sallu-sticker" id="sallu" onclick="salluClick()">
+  <span>🐱</span>
+  <span class="sallu-label">Sallu 🌸</span>
+</div>
+<div class="khi-bubble" id="khi-bubble">
+  <span id="khi-text">Khi khi khi! 😸</span>
+  <div class="khi-bubble-arrow"></div>
+</div>
+
+<nav id="nav">
+  <a href="index.html">🏠 Home</a>
+  <a href="story.html">🌸 Story</a>
+  <a href="gallery.html">🖼️ Gallery</a>
+  <a href="together.html">🫶 Hamare Pal</a>
+  <a href="message.html">💌 Letter</a>
+  <a href="quiz.html">💭 Quiz</a>
+  <a href="yaadein.html">🫙 Yaadein</a>
+  <a href="waqt.html">⏳ Waqt</a>
+  <a href="duaayein.html">🌟 Duaayein</a>
+  <a href="surprise.html">💍 Surprise</a>
+</nav>
+
+<button id="music-btn" onclick="toggleMusic()">🎵</button>
+<button id="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<audio id="bg-music" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<div id="lightbox">
+  <button id="lb-close" onclick="closeLightbox()">✕</button>
+  <button id="lb-prev" onclick="lbNav(-1)">‹</button>
+  <img id="lb-img" src="" alt="">
+  <button id="lb-next" onclick="lbNav(1)">›</button>
+  <div id="lb-cap"></div>
+</div>
+
+
+<section id="gallery">
+  <div class="inner" style="max-width:1100px;">
+    <h2 class="s-head reveal">🖼️ Tumhari Zindagi, Hamare Rang</h2>
+    <p class="s-sub reveal">Woh tasveerein jo dil mein utar jaati hain — hamesha ke liye.</p>
+    <div class="gallery-grid reveal">
+      <div class="polaroid" style="--rot:-3deg" onclick="openLightbox('photos/img1.jpg','Teri smile meri duniya hai 🌸',galleryImgs,0)">
+        <div class="polaroid-sticker">⭐</div>
+        <div class="polaroid-img"><img src="photos/img1.jpg" alt="Memory 1" loading="lazy"></div>
+        <div class="polaroid-caption">Teri smile meri duniya hai 🌸</div>
+      </div>
+      <div class="polaroid" style="--rot:2deg" onclick="openLightbox('photos/img2.jpg','Kuch waqt aise hote hain jo dil mein rehte hain 💖',galleryImgs,1)">
+        <div class="polaroid-sticker">🌸</div>
+        <div class="polaroid-img"><img src="photos/img2.jpg" alt="Memory 2" loading="lazy"></div>
+        <div class="polaroid-caption">Kuch waqt aise hote hain jo dil mein rehte hain 💖</div>
+      </div>
+      <div class="polaroid" style="--rot:-1.5deg" onclick="openLightbox('photos/img3.jpg','Tu hai toh sab theek hai ✨',galleryImgs,2)">
+        <div class="polaroid-sticker">💫</div>
+        <div class="polaroid-img"><img src="photos/img3.jpg" alt="Memory 3" loading="lazy"></div>
+        <div class="polaroid-caption">Tu hai toh sab theek hai ✨</div>
+      </div>
+      <div class="polaroid" style="--rot:3deg" onclick="openLightbox('photos/img4.jpg','Har khushi teri wajah se hai 🌷',galleryImgs,3)">
+        <div class="polaroid-sticker">🎀</div>
+        <div class="polaroid-img"><img src="photos/img4.jpg" alt="Memory 4" loading="lazy"></div>
+        <div class="polaroid-caption">Har khushi teri wajah se hai 🌷</div>
+      </div>
+      <div class="polaroid" style="--rot:-2.5deg" onclick="openLightbox('photos/img5.jpg','Teri aankhon mein kho jaata hoon 💫',galleryImgs,4)">
+        <div class="polaroid-sticker">💖</div>
+        <div class="polaroid-img"><img src="photos/img5.jpg" alt="Memory 5" loading="lazy"></div>
+        <div class="polaroid-caption">Teri aankhon mein kho jaata hoon 💫</div>
+      </div>
+      <div class="polaroid" style="--rot:1.5deg" onclick="openLightbox('photos/img6.jpg','Best memories wali ladki 🎀',galleryImgs,5)">
+        <div class="polaroid-sticker">✨</div>
+        <div class="polaroid-img"><img src="photos/img6.jpg" alt="Memory 6" loading="lazy"></div>
+        <div class="polaroid-caption">Best memories wali ladki 🎀</div>
+      </div>
+      <div class="polaroid" style="--rot:-2deg" onclick="openLightbox('photos/img7.jpg','Jab tu hassti hai, sab roshni ho jaata hai ⭐',galleryImgs,6)">
+        <div class="polaroid-sticker">🌷</div>
+        <div class="polaroid-img"><img src="photos/img7.jpg" alt="Memory 7" loading="lazy"></div>
+        <div class="polaroid-caption">Jab tu hassti hai, sab roshni ho jaata hai ⭐</div>
+      </div>
+      <div class="polaroid" style="--rot:2.5deg" onclick="openLightbox('photos/img8.jpg','Tere saath har pal khaas hai 💕',galleryImgs,7)">
+        <div class="polaroid-sticker">💕</div>
+        <div class="polaroid-img"><img src="photos/img8.jpg" alt="Memory 8" loading="lazy"></div>
+        <div class="polaroid-caption">Tere saath har pal khaas hai 💕</div>
+      </div>
+      <div class="polaroid" style="--rot:-1deg" onclick="openLightbox('photos/img9.jpg','Meri pyaari si Saloni 🌸',galleryImgs,8)">
+        <div class="polaroid-sticker">🌺</div>
+        <div class="polaroid-img"><img src="photos/img9.jpg" alt="Memory 9" loading="lazy"></div>
+        <div class="polaroid-caption">Meri pyaari si Saloni 🌸</div>
+      </div>
+      <div class="polaroid" style="--rot:3.5deg" onclick="openLightbox('photos/img10.jpg','Tu nahin hoti toh ye zindagi adhuri hoti 💝',galleryImgs,9)">
+        <div class="polaroid-sticker">💝</div>
+        <div class="polaroid-img"><img src="photos/img10.jpg" alt="Memory 10" loading="lazy"></div>
+        <div class="polaroid-caption">Tu nahin hoti toh ye zindagi adhuri hoti 💝</div>
+      </div>
+      <div class="polaroid" style="--rot:-3.5deg" onclick="openLightbox('photos/img11.jpg','Teri yaadein dil mein basti hain 🌺',galleryImgs,10)">
+        <div class="polaroid-sticker">🌹</div>
+        <div class="polaroid-img"><img src="photos/img11.jpg" alt="Memory 11" loading="lazy"></div>
+        <div class="polaroid-caption">Teri yaadein dil mein basti hain 🌺</div>
+      </div>
+      <div class="polaroid" style="--rot:1deg" onclick="openLightbox('photos/img12.jpg','Har pal tera intezaar rehta hai 💌',galleryImgs,11)">
+        <div class="polaroid-sticker">💌</div>
+        <div class="polaroid-img"><img src="photos/img12.jpg" alt="Memory 12" loading="lazy"></div>
+        <div class="polaroid-caption">Har pal tera intezaar rehta hai 💌</div>
+      </div>
+      <div class="polaroid" style="--rot:-2deg" onclick="openLightbox('photos/img13.jpg','Jo dil chahta hai, wohi tu hai 🥰',galleryImgs,12)">
+        <div class="polaroid-sticker">🥰</div>
+        <div class="polaroid-img"><img src="photos/img13.jpg" alt="Memory 13" loading="lazy"></div>
+        <div class="polaroid-caption">Jo dil chahta hai, wohi tu hai 🥰</div>
+      </div>
+      <div class="polaroid" style="--rot:2.5deg" onclick="openLightbox('photos/img14.jpg','Sirf teri wajah se muskurata hoon 💖',galleryImgs,13)">
+        <div class="polaroid-sticker">🌸</div>
+        <div class="polaroid-img"><img src="photos/img14.jpg" alt="Memory 14" loading="lazy"></div>
+        <div class="polaroid-caption">Sirf teri wajah se muskurata hoon 💖</div>
+      </div>
+      <div class="polaroid" style="--rot:-1.5deg" onclick="openLightbox('photos/img15.jpg','Tere jaisa koi nahi is duniya mein 🌹',galleryImgs,14)">
+        <div class="polaroid-sticker">💫</div>
+        <div class="polaroid-img"><img src="photos/img15.jpg" alt="Memory 15" loading="lazy"></div>
+        <div class="polaroid-caption">Tere jaisa koi nahi is duniya mein 🌹</div>
+      </div>
+      <div class="polaroid" style="--rot:3deg" onclick="openLightbox('photos/img16.jpg','Apna sa lagta hai tera har andaaz 💫',galleryImgs,15)">
+        <div class="polaroid-sticker">🎀</div>
+        <div class="polaroid-img"><img src="photos/img16.jpg" alt="Memory 16" loading="lazy"></div>
+        <div class="polaroid-caption">Apna sa lagta hai tera har andaaz 💫</div>
+      </div>
+      <div class="polaroid" style="--rot:-2.5deg" onclick="openLightbox('photos/img17.jpg','Teri khushi meri khushi hai 🎀',galleryImgs,16)">
+        <div class="polaroid-sticker">⭐</div>
+        <div class="polaroid-img"><img src="photos/img17.jpg" alt="Memory 17" loading="lazy"></div>
+        <div class="polaroid-caption">Teri khushi meri khushi hai 🎀</div>
+      </div>
+      <div class="polaroid" style="--rot:1.5deg" onclick="openLightbox('photos/img18.jpg','Dil ki baat tu hi samajhti hai 💕',galleryImgs,17)">
+        <div class="polaroid-sticker">💖</div>
+        <div class="polaroid-img"><img src="photos/img18.jpg" alt="Memory 18" loading="lazy"></div>
+        <div class="polaroid-caption">Dil ki baat tu hi samajhti hai 💕</div>
+      </div></div>
+  </div>
+</section>
+
+
+<footer>
+  <span class="footer-alien">👾</span>
+  Made with <span>💖</span> and real feelings &nbsp;·&nbsp; Sirf tumhare liye &nbsp;·&nbsp; Hamesha
+  <div class="footer-hearts">💕 🌸 ✨ 🌸 💕</div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+// mark active nav
+document.querySelectorAll('nav a').forEach(a=>{
+  if(a.getAttribute('href')==='gallery.html') a.classList.add('active');
+});
+const galleryImgs = [
+  {src:'photos/img1.jpg',cap:'Teri smile meri duniya hai 🌸'},
+  {src:'photos/img2.jpg',cap:'Kuch waqt aise hote hain jo dil mein rehte hain 💖'},
+  {src:'photos/img3.jpg',cap:'Tu hai toh sab theek hai ✨'},
+  {src:'photos/img4.jpg',cap:'Har khushi teri wajah se hai 🌷'},
+  {src:'photos/img5.jpg',cap:'Teri aankhon mein kho jaata hoon 💫'},
+  {src:'photos/img6.jpg',cap:'Best memories wali ladki 🎀'},
+  {src:'photos/img7.jpg',cap:'Jab tu hassti hai, sab roshni ho jaata hai ⭐'},
+  {src:'photos/img8.jpg',cap:'Tere saath har pal khaas hai 💕'},
+  {src:'photos/img9.jpg',cap:'Meri pyaari si Saloni 🌸'},
+  {src:'photos/img10.jpg',cap:'Tu nahin hoti toh ye zindagi adhuri hoti 💝'},
+  {src:'photos/img11.jpg',cap:'Teri yaadein dil mein basti hain 🌺'},
+  {src:'photos/img12.jpg',cap:'Har pal tera intezaar rehta hai 💌'},
+  {src:'photos/img13.jpg',cap:'Jo dil chahta hai, wohi tu hai 🥰'},
+  {src:'photos/img14.jpg',cap:'Sirf teri wajah se muskurata hoon 💖'},
+  {src:'photos/img15.jpg',cap:'Tere jaisa koi nahi is duniya mein 🌹'},
+  {src:'photos/img16.jpg',cap:'Apna sa lagta hai tera har andaaz 💫'},
+  {src:'photos/img17.jpg',cap:'Teri khushi meri khushi hai 🎀'},
+  {src:'photos/img18.jpg',cap:'Dil ki baat tu hi samajhti hai 💕'},
+];
+</script>
+</body>
+</html>

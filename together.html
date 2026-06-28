@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🫶 Hamare Pal</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="fc"></canvas>
+<div id="cursor-outer"></div>
+<div id="cursor-inner"></div>
+<div id="cursor-emoji">🌸</div>
+
+<div class="sallu-sticker" id="sallu" onclick="salluClick()">
+  <span>🐱</span>
+  <span class="sallu-label">Sallu 🌸</span>
+</div>
+<div class="khi-bubble" id="khi-bubble">
+  <span id="khi-text">Khi khi khi! 😸</span>
+  <div class="khi-bubble-arrow"></div>
+</div>
+
+<nav id="nav">
+  <a href="index.html">🏠 Home</a>
+  <a href="story.html">🌸 Story</a>
+  <a href="gallery.html">🖼️ Gallery</a>
+  <a href="together.html">🫶 Hamare Pal</a>
+  <a href="message.html">💌 Letter</a>
+  <a href="quiz.html">💭 Quiz</a>
+  <a href="yaadein.html">🫙 Yaadein</a>
+  <a href="waqt.html">⏳ Waqt</a>
+  <a href="duaayein.html">🌟 Duaayein</a>
+  <a href="surprise.html">💍 Surprise</a>
+</nav>
+
+<button id="music-btn" onclick="toggleMusic()">🎵</button>
+<button id="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<audio id="bg-music" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<div id="lightbox">
+  <button id="lb-close" onclick="closeLightbox()">✕</button>
+  <button id="lb-prev" onclick="lbNav(-1)">‹</button>
+  <img id="lb-img" src="" alt="">
+  <button id="lb-next" onclick="lbNav(1)">›</button>
+  <div id="lb-cap"></div>
+</div>
+
+
+<section id="together">
+  <div class="inner" style="max-width:1100px;">
+    <h2 class="s-head reveal">🫶 Hamare Woh Pal</h2>
+    <p class="s-sub reveal">Dono saath the — aur woh moments aaj bhi dil mein zinda hain 💕</p>
+    <div style="text-align:center;background:rgba(255,255,255,.6);border:2px dashed var(--purple-l);border-radius:24px;padding:16px 28px;margin-bottom:36px;font-family:Quicksand,sans-serif;font-weight:600;font-size:.95rem;color:var(--mid);line-height:1.7;box-shadow:4px 4px 0 rgba(212,170,255,.4);" class="reveal">
+      Yeh woh tasveerein hain jo sirf camera ne nahi — <strong style="color:var(--pink)">dil ne bhi kheenchi hain</strong>.<br>
+      Har ek frame mein kuch chhupa hai — ek hassi, ek pal, ek ehsaas. 🌸
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="polaroid" style="--rot:-2deg" onclick="openLightbox('together/img1.jpg','Woh smile jo sab kuch roshan kar de 🌸',togetherImgs,0)">
+        <div class="polaroid-sticker">🌸</div>
+        <div class="polaroid-img"><img src="together/img1.jpg" alt="Together 1" loading="lazy"></div>
+        <div class="polaroid-caption">Woh smile jo sab kuch roshan kar de 🌸</div>
+      </div>
+      <div class="polaroid" style="--rot:2.5deg" onclick="openLightbox('together/img2.jpg','Dono ki hasi ek saath 💕',togetherImgs,1)">
+        <div class="polaroid-sticker">💖</div>
+        <div class="polaroid-img"><img src="together/img2.jpg" alt="Together 2" loading="lazy"></div>
+        <div class="polaroid-caption">Dono ki hasi ek saath 💕</div>
+      </div>
+      <div class="polaroid" style="--rot:-1.5deg" onclick="openLightbox('together/img3.jpg','Haath mein haath, dil mein dil 🌷',togetherImgs,2)">
+        <div class="polaroid-sticker">✨</div>
+        <div class="polaroid-img"><img src="together/img3.jpg" alt="Together 3" loading="lazy"></div>
+        <div class="polaroid-caption">Haath mein haath, dil mein dil 🌷</div>
+      </div>
+      <div class="polaroid" style="--rot:3deg" onclick="openLightbox('together/img4.jpg','Sabzi mandi mein bhi tum khaas lage 🍍',togetherImgs,3)">
+        <div class="polaroid-sticker">🎀</div>
+        <div class="polaroid-img"><img src="together/img4.jpg" alt="Together 4" loading="lazy"></div>
+        <div class="polaroid-caption">Sabzi mandi mein bhi tum khaas lage 🍍</div>
+      </div>
+      <div class="polaroid" style="--rot:-2deg" onclick="openLightbox('together/img5.jpg','Mall mein woh jhappi yaad hai? 💖',togetherImgs,4)">
+        <div class="polaroid-sticker">💫</div>
+        <div class="polaroid-img"><img src="together/img5.jpg" alt="Together 5" loading="lazy"></div>
+        <div class="polaroid-caption">Mall mein woh jhappi yaad hai? 💖</div>
+      </div></div>
+  </div>
+</section>
+
+
+<footer>
+  <span class="footer-alien">👾</span>
+  Made with <span>💖</span> and real feelings &nbsp;·&nbsp; Sirf tumhare liye &nbsp;·&nbsp; Hamesha
+  <div class="footer-hearts">💕 🌸 ✨ 🌸 💕</div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+// mark active nav
+document.querySelectorAll('nav a').forEach(a=>{
+  if(a.getAttribute('href')==='together.html') a.classList.add('active');
+});
+const togetherImgs = [
+  {src:'together/img1.jpg',cap:'Woh smile jo sab kuch roshan kar de 🌸'},
+  {src:'together/img2.jpg',cap:'Dono ki hasi ek saath 💕'},
+  {src:'together/img3.jpg',cap:'Haath mein haath, dil mein dil 🌷'},
+  {src:'together/img4.jpg',cap:'Sabzi mandi mein bhi tum khaas lage 🍍'},
+  {src:'together/img5.jpg',cap:'Mall mein woh jhappi yaad hai? 💖'},
+];
+</script>
+</body>
+</html>

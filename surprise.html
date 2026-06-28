@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💍 Ek Sawaal Hai...</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── SURPRISE PAGE SPECIFIC ── */
+#surprise-section{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:110px 20px 64px;position:relative;z-index:1;
+  text-align:center;
+}
+.surprise-box{
+  background:rgba(255,255,255,.75);
+  border:2.5px dashed var(--pink-l);
+  border-radius:30px;
+  padding:52px 48px 44px;
+  max-width:580px;width:100%;
+  box-shadow:7px 7px 0 var(--pink-l),0 20px 64px var(--shadow);
+  position:relative;
+}
+.surprise-box::before{content:'💌';position:absolute;top:-20px;left:32px;font-size:2.2rem;}
+.surprise-box::after{content:'🌸';position:absolute;top:-20px;right:32px;font-size:2.2rem;}
+
+.sq-emoji{font-size:5rem;display:block;margin-bottom:16px;animation:sq-bounce 1.8s ease-in-out infinite;}
+@keyframes sq-bounce{0%,100%{transform:translateY(0) rotate(-5deg);}40%{transform:translateY(-20px) rotate(5deg);}70%{transform:translateY(-8px) rotate(-2deg);}}
+
+.sq-title{
+  font-family:'Dancing Script',cursive;
+  font-size:clamp(1.8rem,5vw,2.8rem);font-weight:700;
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:12px;line-height:1.2;
+}
+.sq-sub{
+  font-family:'Quicksand',sans-serif;font-weight:600;font-size:1rem;
+  color:var(--mid);margin-bottom:36px;line-height:1.7;
+}
+.sq-sub strong{color:var(--pink);}
+
+.sq-btns{display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap;position:relative;min-height:80px;}
+
+.btn-yes{
+  padding:16px 44px;
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  color:#fff;font-family:'Nunito',sans-serif;font-weight:900;font-size:1.15rem;
+  border-radius:50px;border:none;cursor:pointer;
+  box-shadow:0 8px 24px rgba(255,107,139,.4);
+  transition:all .3s cubic-bezier(.34,1.56,.64,1);
+  position:relative;z-index:2;
+}
+.btn-yes:hover{transform:scale(1.1) translateY(-4px);box-shadow:0 14px 36px rgba(255,107,139,.55);}
+
+.btn-no{
+  padding:14px 32px;
+  background:rgba(255,255,255,.7);
+  color:var(--mid);font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;
+  border-radius:50px;border:2px solid var(--pink-l);
+  cursor:pointer;
+  transition:all .2s ease;
+  position:fixed;
+  z-index:999;
+}
+
+.no-counter{
+  font-family:'Quicksand',sans-serif;font-weight:600;font-size:.82rem;
+  color:var(--light);margin-top:14px;min-height:20px;
+}
+
+/* ── POPUP OVERLAY ── */
+#yes-popup{
+  position:fixed;inset:0;z-index:99999;
+  background:rgba(30,10,40,.7);backdrop-filter:blur(16px);
+  display:none;align-items:center;justify-content:center;
+  flex-direction:column;gap:0;padding:20px;
+}
+#yes-popup.open{display:flex;}
+.popup-box{
+  background:linear-gradient(135deg,#fff0f8,#f5e8ff);
+  border:3px solid var(--pink-l);
+  border-radius:32px;
+  padding:48px 44px 40px;
+  max-width:500px;width:100%;
+  text-align:center;
+  box-shadow:0 24px 80px rgba(165,94,234,.3),8px 8px 0 var(--pink-l);
+  animation:popup-in .6s cubic-bezier(.34,1.56,.64,1);
+  position:relative;
+}
+@keyframes popup-in{0%{opacity:0;transform:scale(.6) translateY(40px);}100%{opacity:1;transform:scale(1) translateY(0);}}
+.popup-emoji{font-size:5rem;display:block;margin-bottom:16px;animation:sq-bounce 1.5s ease-in-out infinite;}
+.popup-title{
+  font-family:'Dancing Script',cursive;font-size:clamp(2rem,6vw,3rem);font-weight:700;
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:16px;line-height:1.2;
+}
+.popup-lines{
+  font-family:'Quicksand',sans-serif;font-weight:600;font-size:.98rem;
+  color:var(--mid);line-height:1.9;margin-bottom:28px;
+}
+.popup-lines span{color:var(--pink);font-weight:700;}
+.popup-close{
+  padding:13px 36px;
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;
+  border-radius:40px;border:none;cursor:pointer;
+  box-shadow:0 6px 20px rgba(255,107,139,.4);
+  transition:all .3s cubic-bezier(.34,1.56,.64,1);
+}
+.popup-close:hover{transform:scale(1.08) translateY(-2px);}
+.popup-hearts{
+  position:absolute;top:-16px;left:50%;transform:translateX(-50%);
+  display:flex;gap:6px;font-size:1.4rem;
+}
+
+/* ── QUIZ EXTRA ── */
+.quiz-card{background:rgba(255,255,255,.78);border:2px solid rgba(255,107,139,.2);border-radius:28px;padding:36px 40px;box-shadow:6px 6px 0 var(--pink-l),0 16px 48px var(--shadow);max-width:720px;margin:0 auto;}
+.quiz-progress{display:flex;gap:8px;margin-bottom:28px;}
+.qp-dot{flex:1;height:6px;border-radius:6px;background:var(--pink-p);transition:background .4s;}
+.qp-dot.done{background:linear-gradient(90deg,var(--pink),var(--purple));}
+.qp-dot.current{background:var(--pink-l);}
+.quiz-q-num{font-size:.8rem;font-weight:700;color:var(--light);letter-spacing:1px;text-transform:uppercase;font-family:'Quicksand',sans-serif;margin-bottom:10px;}
+.quiz-question{font-size:clamp(1.05rem,2.8vw,1.3rem);font-weight:800;color:var(--text);line-height:1.5;margin-bottom:26px;}
+.quiz-options{display:flex;flex-direction:column;gap:11px;}
+.quiz-opt{padding:14px 20px;border-radius:16px;border:2px solid rgba(165,94,234,.18);background:rgba(255,255,255,.65);font-family:'Quicksand',sans-serif;font-weight:600;font-size:.93rem;color:var(--text);cursor:pointer;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.quiz-opt:hover:not([disabled]){background:linear-gradient(135deg,rgba(255,107,139,.1),rgba(165,94,234,.08));border-color:var(--pink-l);transform:translateX(6px);}
+.quiz-opt.correct{background:linear-gradient(135deg,rgba(34,197,94,.15),rgba(34,197,94,.06));border-color:#22c55e;color:#15803d;}
+.quiz-opt.wrong{background:linear-gradient(135deg,rgba(255,79,79,.12),rgba(255,79,79,.05));border-color:#ff4f4f;color:#dc2626;}
+.quiz-feedback{margin-top:18px;padding:13px 17px;border-radius:13px;font-family:'Quicksand',sans-serif;font-weight:600;font-size:.9rem;line-height:1.5;display:none;}
+.quiz-feedback.show{display:block;}
+.quiz-feedback.fb-correct{background:rgba(34,197,94,.1);color:#15803d;border:1.5px solid rgba(34,197,94,.25);}
+.quiz-feedback.fb-wrong{background:rgba(255,79,79,.1);color:#dc2626;border:1.5px solid rgba(255,79,79,.2);}
+.quiz-next-btn{margin-top:22px;padding:12px 28px;background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;border-radius:40px;border:none;cursor:pointer;box-shadow:0 6px 18px rgba(255,107,139,.35);transition:all .3s cubic-bezier(.34,1.56,.64,1);display:none;}
+.quiz-next-btn:hover{transform:scale(1.06) translateY(-2px);}
+.quiz-next-btn.show{display:inline-block;}
+.quiz-score-wrap{text-align:center;padding:8px 0;}
+.qs-emoji{font-size:4rem;display:block;margin-bottom:12px;animation:sq-bounce 1.8s ease-in-out infinite;}
+.qs-title{font-family:'Dancing Script',cursive;font-size:2rem;font-weight:700;color:var(--pink);margin-bottom:10px;}
+.qs-msg{font-family:'Quicksand',sans-serif;font-weight:600;font-size:.95rem;color:var(--mid);line-height:1.65;margin-bottom:24px;}
+
+@media(max-width:480px){
+  .surprise-box{padding:36px 20px 32px;}
+  .popup-box{padding:36px 20px 28px;}
+  .btn-yes{padding:14px 32px;font-size:1rem;}
+}
+</style>
+</head>
+<body>
+<canvas id="fc"></canvas>
+<div id="cursor-outer"></div>
+<div id="cursor-inner"></div>
+<div id="cursor-emoji">🌸</div>
+<div class="sallu-sticker" id="sallu" onclick="salluClick()">
+  <span>🐱</span>
+  <span class="sallu-label">Sallu 🌸</span>
+</div>
+<div class="khi-bubble" id="khi-bubble">
+  <span id="khi-text">Khi khi khi! 😸</span>
+  <div class="khi-bubble-arrow"></div>
+</div>
+
+<nav id="nav">
+  <a href="index.html">🏠 Home</a>
+  <a href="story.html">🌸 Story</a>
+  <a href="gallery.html">🖼️ Gallery</a>
+  <a href="together.html">🫶 Hamare Pal</a>
+  <a href="message.html">💌 Letter</a>
+  <a href="quiz.html">💭 Quiz</a>
+  <a href="yaadein.html">🫙 Yaadein</a>
+  <a href="waqt.html">⏳ Waqt</a>
+  <a href="duaayein.html">🌟 Duaayein</a>
+  <a href="surprise.html">💍 Surprise</a>
+</nav>
+
+<button id="music-btn" onclick="toggleMusic()">🎵</button>
+<button id="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<audio id="bg-music" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<div id="lightbox">
+  <button id="lb-close" onclick="closeLightbox()">✕</button>
+  <button id="lb-prev" onclick="lbNav(-1)">‹</button>
+  <img id="lb-img" src="" alt="">
+  <button id="lb-next" onclick="lbNav(1)">›</button>
+  <div id="lb-cap"></div>
+</div>
+
+<!-- YES POPUP -->
+<div id="yes-popup">
+  <div class="popup-box">
+    <div class="popup-hearts">💖 💕 💖 💕 💖</div>
+    <span class="popup-emoji">🥹</span>
+    <div class="popup-title">Main Jaanta Tha! 💖</div>
+    <div class="popup-lines">
+      Sallu ne haan bol diya — ab toh record ho gaya! 📝<br><br>
+      <span>Sach mein...</span> tumhare bina yeh sab adhoora tha.<br>
+      Tumhari ek haan ne poori duniya roshan kar di. 🌸<br><br>
+      Ab ek kaam karo — <span>muskurao</span>.<br>
+      Kyunki tum muskurate ho toh main automatically khush ho jaata hoon. 😭💕<br><br>
+      <span>P.S.</span> — No wala button bhaag gaya tha kyunki<br>
+      usse bhi pata tha answer kya hoga. 😂
+    </div>
+    <button class="popup-close" onclick="closePopup()">Aww, Thank You 🌸</button>
+  </div>
+</div>
+
+<!-- SURPRISE SECTION -->
+<section id="surprise-section">
+  <div class="surprise-box reveal">
+    <span class="sq-emoji">🥺</span>
+    <div class="sq-title">Sallu... Ek Sawaal Hai 💭</div>
+    <div class="sq-sub">
+      Yeh page bahut soch ke banaya hai.<br>
+      Dil thoda nervous hai, lekin phir bhi pooch raha hoon —<br>
+      <strong>Kya tum meri hogi? 💖</strong><br>
+      <span style="font-size:.85rem;color:var(--light);">(No wala button bhaagna chahta hai — aur woh theek bhi hai 😅)</span>
+    </div>
+    <div class="sq-btns">
+      <button class="btn-yes" onclick="yesClicked()">Haan ji! 💖</button>
+      <button class="btn-no" id="btn-no" onmouseover="runAway()" ontouchstart="runAway()">Nahi 🙅</button>
+    </div>
+    <div class="no-counter" id="no-counter"></div>
+  </div>
+</section>
+
+<!-- QUIZ SECTION -->
+<section id="quiz" style="min-height:auto;padding:40px 20px 80px;">
+  <div class="inner" style="max-width:740px;">
+    <h2 class="s-head reveal">💭 Naya Quiz Round!</h2>
+    <p class="s-sub reveal">Pehle wala toh aasaan tha — ab asli imtihaan! 😏🌸</p>
+    <div class="quiz-card reveal" id="quiz-card">
+      <div class="quiz-progress" id="qprogress"></div>
+      <div id="qbody"><div style="text-align:center;padding:20px;color:var(--mid);font-family:Quicksand,sans-serif;">Loading... 🌸</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-alien">👾</span>
+  Made with <span>💖</span> and real feelings &nbsp;·&nbsp; Sirf tumhare liye &nbsp;·&nbsp; Hamesha
+  <div class="footer-hearts">💕 🌸 ✨ 🌸 💕</div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+// mark active nav
+document.querySelectorAll('nav a').forEach(a=>{
+  if(a.getAttribute('href')==='surprise.html') a.classList.add('active');
+});
+
+// ── NO BUTTON RUNS AWAY ─────────────────────────────
+let noCount = 0;
+const noBtn = document.getElementById('btn-no');
+const noCounter = document.getElementById('no-counter');
+const noPhrases = [
+  'Pakad lo agar pakad sako! 😏',
+  'Kahi nahi jaane denge tumhe! 🏃',
+  'Yeh button bhaag kyun raha hai? 😅',
+  'Lagta hai No ka answer nahi dena 😂',
+  'Button bhi jaanta hai sahi jawab! 💖',
+  'Arre pakad lo zara! 🤭',
+  'Yeh toh thak bhi nahi raha 😭',
+  'Shayad No option hi nahi hai 😌',
+  'Dil se socho... haan hi sahi lagega 🌸',
+  'Congratulations, No button retired ho gaya 😂💕',
+];
+
+// Place No button randomly on screen
+function runAway() {
+  noCount++;
+  const maxX = window.innerWidth  - 120;
+  const maxY = window.innerHeight - 60;
+  const x = Math.max(10, Math.floor(Math.random() * maxX));
+  const y = Math.max(80, Math.floor(Math.random() * maxY));
+  noBtn.style.left  = x + 'px';
+  noBtn.style.top   = y + 'px';
+  // shrink it each time
+  const scale = Math.max(0.4, 1 - noCount * 0.08);
+  noBtn.style.transform = `scale(${scale})`;
+  noBtn.style.opacity   = Math.max(0.3, 1 - noCount * 0.07);
+  if(noCounter) noCounter.textContent = noPhrases[Math.min(noCount - 1, noPhrases.length - 1)];
+  // after 10 escapes, make it disappear
+  if(noCount >= 10) {
+    noBtn.style.display = 'none';
+    noCounter.textContent = '😂 No button ne toh surrender kar diya! Haan bol do ab!';
+  }
+}
+
+// Initial position
+(function() {
+  noBtn.style.left = '55%';
+  noBtn.style.top  = (window.innerHeight * 0.55) + 'px';
+})();
+
+// ── YES CLICKED ─────────────────────────────────────
+window.yesClicked = function() {
+  document.getElementById('yes-popup').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  launchConfetti();
+  // Big heart burst
+  setTimeout(launchConfetti, 600);
+};
+
+window.closePopup = function() {
+  document.getElementById('yes-popup').classList.remove('open');
+  document.body.style.overflow = '';
+};
+
+document.getElementById('yes-popup').addEventListener('click', function(e) {
+  if(e.target === this) closePopup();
+});
+
+// ── QUIZ ────────────────────────────────────────────
+(function(){
+  const QS=[
+    {
+      q:'Agar Sallu aur pizza dono saath ho, toh pehle kaun? 🍕',
+      opts:['Pizza, bilkul pizza 🍕','Sallu... par pizza baad mein? 😅','Dono ek saath — ek haath mein Sallu ek mein pizza 🤝','Main vegetarian hoon yaar'],
+      ans:1,
+      fc:'Sahi sahi! Sallu pehle — pizza toh roz milta hai, Sallu special hai 💖',
+      fw:'Yaar pizza se zyada important koi nahi hota... ruk... Sallu hai 😂'
+    },
+    {
+      q:'Sallu kab sabse zyada cute lagti hai? 🥺',
+      opts:['Jab wo angry hoti hai 😤','Jab wo hassti hai aur aankhein band ho jaati hain 😄','Jab wo ghoom rahi hoti hai mall mein','Jab wo so rahi hoti hai aur khabar nahi'],
+      ans:1,
+      fc:'Bilkul! Woh wali hasi jisme aankhein chhoti ho jaati hain — best cheez duniya ki 💕',
+      fw:'Sab options cute hain but woh hasi wali smile... unbeatable hai yaar 🌸'
+    },
+    {
+      q:'Agar Sallu ek gaana hoti toh kaun sa hoti? 🎵',
+      opts:['Koi nahi — woh ek album hai, ek gaana nahi 💿','Tujh Mein Rab Dikhta Hai 🌟','Koi Kahe Kehta Rahe 😂','Kal Ho Naa Ho — kyunki drama pasand hai'],
+      ans:0,
+      fc:'Haan bilkul! Ek gaana kaafi nahi — Sallu poori album hai, har mood ka ek track 🎶💖',
+      fw:'Sahi bhi hai — lekin sach yeh hai ki Sallu ek gaana nahi, poori album hai 💿✨'
+    },
+    {
+      q:'Sallu ka superpower kya hai? 💫',
+      opts:['Bina bataye dil ki baat samajh lena','Har jagah late aana aur phir bhi sab maaf kar dena 😂','Itni pyaari smile karna ki gussa bhool jaao','Upar wali dono — she is OP 😤'],
+      ans:3,
+      fc:'OP character! Dono superpowers — dil padh lena + smile se gussa khatam karna 💖😂',
+      fw:'Ek choose karna mushkil hai kyunki honestly dono sach hain 😂💕'
+    },
+    {
+      q:'Agar Sallu angry ho, toh best solution kya hai? 😤',
+      opts:['Darr ke corner mein baith jaao 🫣','Sorry bol do aur chocolate le aao 🍫','Seedha bolo — "Tu angry ho toh bhi cute lagti hai" 😂','Bhaag jaao jab tak ho sake 🏃'],
+      ans:2,
+      fc:'HAHAHA yeh line actually kaam karti hai 99% time 😂 Aur 1% mein toh aur zyada gaand phatni hai 💀',
+      fw:'Chocolate bhi sahi hai — lekin "angry mein bhi cute" wali line toh game-changer hai 😂💖'
+    },
+    {
+      q:'Sallu ke baare mein sabse sach wali baat? 💭',
+      opts:['Woh bahut stubborn hai... aur hum usse pyaar karte hain iske liye 😂','Uski hasi duniya ki best cheez hai','Uske bina yeh sab pages adhoore the','Teeno sach hain — choose karna allowed nahi 🌸'],
+      ans:3,
+      fc:'Teen teeno sach! Stubborn + best smile + incomplete without her — yahi toh Sallu hai 💖😂',
+      fw:'Ek choose nahi ho sakta — teeno ek saath hi Sallu ko define karte hain 🌸'
+    },
+  ];
+  let cur=0, score=0, answered=false;
+  function buildProg(){
+    const el=document.getElementById('qprogress');
+    if(!el)return;
+    el.innerHTML=QS.map((_,i)=>`<div class="qp-dot ${i<cur?'done':i===cur?'current':''}"></div>`).join('');
+  }
+  function render(){
+    const body=document.getElementById('qbody');if(!body)return;
+    if(cur>=QS.length){renderScore();return;}
+    answered=false;const q=QS[cur];buildProg();
+    body.innerHTML=`
+      <div class="quiz-q-num">Sawaal ${cur+1} / ${QS.length}</div>
+      <div class="quiz-question">${q.q}</div>
+      <div class="quiz-options">
+        ${q.opts.map((o,i)=>`<button class="quiz-opt" id="qo${i}" onclick="qAns(${i})">${o}</button>`).join('')}
+      </div>
+      <div class="quiz-feedback" id="qfb"></div>
+      <button class="quiz-next-btn" id="qnxt" onclick="qNext()">Agla Sawaal →</button>`;
+  }
+  window.qAns=function(idx){
+    if(answered)return;answered=true;
+    const q=QS[cur];
+    document.querySelectorAll('.quiz-opt').forEach(o=>o.disabled=true);
+    const fb=document.getElementById('qfb'),nxt=document.getElementById('qnxt');
+    if(idx===q.ans){
+      score++;
+      document.getElementById('qo'+idx).classList.add('correct');
+      fb.textContent='✅ '+q.fc;fb.className='quiz-feedback show fb-correct';
+    }else{
+      document.getElementById('qo'+idx).classList.add('wrong');
+      document.getElementById('qo'+q.ans).classList.add('correct');
+      fb.textContent='❌ '+q.fw;fb.className='quiz-feedback show fb-wrong';
+    }
+    if(nxt)nxt.classList.add('show');
+  };
+  window.qNext=function(){cur++;render();};
+  function renderScore(){
+    buildProg();
+    const body=document.getElementById('qbody');
+    const pct=Math.round((score/QS.length)*100);
+    let em,ti,ms;
+    if(pct===100){em='🏆';ti='Genius + Sallu Expert!';ms='Bhai wah! Sallu ke baare mein itna pata hai — clearly bahut dhyan dete ho. Aur Sallu ko bhi pata hai 😂💖';}
+    else if(pct>=60){em='💖';ti='Sallu Enthusiast!';ms='Kaafi kuch pata hai — baki toh saath rehte rehte aur pata chal jaayega 😌🌸';}
+    else{em='😂';ti='Zyada Dhyan Do!';ms='Score thoda kharaab hai... but feeling sahi jagah hai. Isliye maafi mil gayi 💕';}
+    body.innerHTML=`<div class="quiz-score-wrap"><span class="qs-emoji">${em}</span><div class="qs-title">${score}/${QS.length} — ${ti}</div><div class="qs-msg">${ms}</div><button class="quiz-next-btn show" onclick="qRestart()">Phir Se Khelein 🔄</button></div>`;
+  }
+  window.qRestart=function(){cur=0;score=0;answered=false;render();};
+  render();
+})();
+</script>
+</body>
+</html>

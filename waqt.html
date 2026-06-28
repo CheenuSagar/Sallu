@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⏳ Waqt</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="fc"></canvas>
+<div id="cursor-outer"></div>
+<div id="cursor-inner"></div>
+<div id="cursor-emoji">🌸</div>
+
+<div class="sallu-sticker" id="sallu" onclick="salluClick()">
+  <span>🐱</span>
+  <span class="sallu-label">Sallu 🌸</span>
+</div>
+<div class="khi-bubble" id="khi-bubble">
+  <span id="khi-text">Khi khi khi! 😸</span>
+  <div class="khi-bubble-arrow"></div>
+</div>
+
+<nav id="nav">
+  <a href="index.html">🏠 Home</a>
+  <a href="story.html">🌸 Story</a>
+  <a href="gallery.html">🖼️ Gallery</a>
+  <a href="together.html">🫶 Hamare Pal</a>
+  <a href="message.html">💌 Letter</a>
+  <a href="quiz.html">💭 Quiz</a>
+  <a href="yaadein.html">🫙 Yaadein</a>
+  <a href="waqt.html">⏳ Waqt</a>
+  <a href="duaayein.html">🌟 Duaayein</a>
+  <a href="surprise.html">💍 Surprise</a>
+</nav>
+
+<button id="music-btn" onclick="toggleMusic()">🎵</button>
+<button id="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<audio id="bg-music" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<div id="lightbox">
+  <button id="lb-close" onclick="closeLightbox()">✕</button>
+  <button id="lb-prev" onclick="lbNav(-1)">‹</button>
+  <img id="lb-img" src="" alt="">
+  <button id="lb-next" onclick="lbNav(1)">›</button>
+  <div id="lb-cap"></div>
+</div>
+
+
+<section id="countdown-sec">
+  <div class="inner" style="text-align:center;max-width:720px;">
+    <h2 class="s-head reveal">⏳ Hamare Saath Ka Waqt</h2>
+    <p class="s-sub reveal">20 November 2021 se aaj tak — yeh sab tera mera tha 💕</p>
+    <div class="cd-frame reveal">
+      <p style="font-family:Quicksand,sans-serif;font-weight:600;font-size:.9rem;color:var(--mid);margin-bottom:10px;">Jab se hamari kahani shuru hui</p>
+      <div class="cd-badge">📅 20 November 2021</div>
+      <div class="cd-units">
+        <div class="cd-unit"><span class="cd-num" id="cd-y">00</span><span class="cd-tag">Saal</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-mo">00</span><span class="cd-tag">Mahine</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-d">00</span><span class="cd-tag">Din</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-h">00</span><span class="cd-tag">Ghante</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-m">00</span><span class="cd-tag">Minute</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-s">00</span><span class="cd-tag">Second</span></div>
+      </div>
+      <div class="cd-msg">Itne din... aur main abhi bhi smile karta hoon 🌸</div>
+      <div class="cd-submsg">Har ek second qeemti tha. Har ek din khaas tha. Aur agar tum saath ho, toh aage bhi yehi rahega.</div>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <span class="footer-alien">👾</span>
+  Made with <span>💖</span> and real feelings &nbsp;·&nbsp; Sirf tumhare liye &nbsp;·&nbsp; Hamesha
+  <div class="footer-hearts">💕 🌸 ✨ 🌸 💕</div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+// mark active nav
+document.querySelectorAll('nav a').forEach(a=>{
+  if(a.getAttribute('href')==='waqt.html') a.classList.add('active');
+});
+
+(function(){
+  const start=new Date('2021-11-20T00:00:00');
+  function pad(n){return String(n).padStart(2,'0');}
+  function tick(){
+    const now=new Date(),diff=now-start,totalS=Math.floor(diff/1000);
+    const s=totalS%60,totalM=Math.floor(totalS/60),m=totalM%60;
+    const totalH=Math.floor(totalM/60),h=totalH%24,totalD=Math.floor(totalH/24);
+    const y=now.getFullYear()-start.getFullYear()-(now<new Date(now.getFullYear(),start.getMonth(),start.getDate())?1:0);
+    const mo=(now.getMonth()-start.getMonth()+12)%12,d=totalD%30;
+    const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=pad(v);};
+    set('cd-y',y);set('cd-mo',mo);set('cd-d',d);set('cd-h',h);set('cd-m',m);set('cd-s',s);
+  }
+  tick();setInterval(tick,1000);
+})();
+
+</script>
+</body>
+</html>

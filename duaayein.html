@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌟 Duaayein</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="fc"></canvas>
+<div id="cursor-outer"></div>
+<div id="cursor-inner"></div>
+<div id="cursor-emoji">🌸</div>
+
+<div class="sallu-sticker" id="sallu" onclick="salluClick()">
+  <span>🐱</span>
+  <span class="sallu-label">Sallu 🌸</span>
+</div>
+<div class="khi-bubble" id="khi-bubble">
+  <span id="khi-text">Khi khi khi! 😸</span>
+  <div class="khi-bubble-arrow"></div>
+</div>
+
+<nav id="nav">
+  <a href="index.html">🏠 Home</a>
+  <a href="story.html">🌸 Story</a>
+  <a href="gallery.html">🖼️ Gallery</a>
+  <a href="together.html">🫶 Hamare Pal</a>
+  <a href="message.html">💌 Letter</a>
+  <a href="quiz.html">💭 Quiz</a>
+  <a href="yaadein.html">🫙 Yaadein</a>
+  <a href="waqt.html">⏳ Waqt</a>
+  <a href="duaayein.html">🌟 Duaayein</a>
+  <a href="surprise.html">💍 Surprise</a>
+</nav>
+
+<button id="music-btn" onclick="toggleMusic()">🎵</button>
+<button id="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<audio id="bg-music" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<div id="lightbox">
+  <button id="lb-close" onclick="closeLightbox()">✕</button>
+  <button id="lb-prev" onclick="lbNav(-1)">‹</button>
+  <img id="lb-img" src="" alt="">
+  <button id="lb-next" onclick="lbNav(1)">›</button>
+  <div id="lb-cap"></div>
+</div>
+
+
+<section id="wishes">
+  <div class="inner" style="max-width:920px;">
+    <h2 class="s-head reveal">🌟 Dil Ki Duaayein</h2>
+    <p class="s-sub reveal">Jo dil ne chahaa, jo aankhon ne dekha — sab yahan likh diya 💌</p>
+    <div class="wish-grid reveal" id="wish-grid"></div>
+  </div>
+</section>
+
+
+<footer>
+  <span class="footer-alien">👾</span>
+  Made with <span>💖</span> and real feelings &nbsp;·&nbsp; Sirf tumhare liye &nbsp;·&nbsp; Hamesha
+  <div class="footer-hearts">💕 🌸 ✨ 🌸 💕</div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+// mark active nav
+document.querySelectorAll('nav a').forEach(a=>{
+  if(a.getAttribute('href')==='duaayein.html') a.classList.add('active');
+});
+
+const WISHES=[
+  {e:'🌸',t:'Teri har subah achi rahe — chai ho, sukoon ho, aur koi worry na ho.',bg:'rgba(255,240,248,.9)',sh:'rgba(255,179,198,.45)',wr:'-2deg'},
+  {e:'💖',t:'Jab bhi udaas ho, yaad karo ki koi hamesha tumhari khushi chahta hai.',bg:'rgba(245,238,255,.9)',sh:'rgba(212,170,255,.45)',wr:'2.5deg'},
+  {e:'⭐',t:'Tumhara sapna jo bhi ho — main chahta hoon ki woh poora ho.',bg:'rgba(255,250,240,.9)',sh:'rgba(255,230,180,.45)',wr:'-1.5deg'},
+  {e:'🎀',t:'Tum jahan bhi jao, ek confidence ke saath jao — tum worth it ho.',bg:'rgba(255,240,255,.9)',sh:'rgba(255,179,228,.45)',wr:'3deg'},
+  {e:'✨',t:'Teri hasi duniya ki sabse khoobsoorat cheez hai — mat chhupaana ise.',bg:'rgba(240,248,255,.9)',sh:'rgba(170,200,255,.45)',wr:'-2.5deg'},
+  {e:'🌺',t:'Jo log tumhare saath lucky hain — unhe pata bhi nahi hoga. Lekin hain.',bg:'rgba(255,244,240,.9)',sh:'rgba(255,200,180,.45)',wr:'1.5deg'},
+  {e:'💌',t:'Ek din aayega — sab baatein ho jaayengi jo abhi ruk gayi hain.',bg:'rgba(248,255,240,.9)',sh:'rgba(180,255,200,.45)',wr:'-3deg'},
+  {e:'🌙',t:'Raat ko agar neend na aaye, jaano ki koi tum par hamesha muskurata hai.',bg:'rgba(245,240,255,.9)',sh:'rgba(200,180,255,.45)',wr:'2deg'},
+];
+const grid=document.getElementById('wish-grid');
+WISHES.forEach(w=>{
+  const div=document.createElement('div');
+  div.className='wish-note';
+  div.style.cssText=`background:${w.bg};box-shadow:4px 4px 0 ${w.sh};transform:rotate(${w.wr});`;
+  div.innerHTML=`<span class="wish-note-emoji">${w.e}</span><span>${w.t}</span>`;
+  grid.appendChild(div);
+});
+
+</script>
+</body>
+</html>

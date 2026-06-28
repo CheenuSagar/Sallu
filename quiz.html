@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💭 Quiz</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="fc"></canvas>
+<div id="cursor-outer"></div>
+<div id="cursor-inner"></div>
+<div id="cursor-emoji">🌸</div>
+
+<div class="sallu-sticker" id="sallu" onclick="salluClick()">
+  <span>🐱</span>
+  <span class="sallu-label">Sallu 🌸</span>
+</div>
+<div class="khi-bubble" id="khi-bubble">
+  <span id="khi-text">Khi khi khi! 😸</span>
+  <div class="khi-bubble-arrow"></div>
+</div>
+
+<nav id="nav">
+  <a href="index.html">🏠 Home</a>
+  <a href="story.html">🌸 Story</a>
+  <a href="gallery.html">🖼️ Gallery</a>
+  <a href="together.html">🫶 Hamare Pal</a>
+  <a href="message.html">💌 Letter</a>
+  <a href="quiz.html">💭 Quiz</a>
+  <a href="yaadein.html">🫙 Yaadein</a>
+  <a href="waqt.html">⏳ Waqt</a>
+  <a href="duaayein.html">🌟 Duaayein</a>
+  <a href="surprise.html">💍 Surprise</a>
+</nav>
+
+<button id="music-btn" onclick="toggleMusic()">🎵</button>
+<button id="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<audio id="bg-music" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<div id="lightbox">
+  <button id="lb-close" onclick="closeLightbox()">✕</button>
+  <button id="lb-prev" onclick="lbNav(-1)">‹</button>
+  <img id="lb-img" src="" alt="">
+  <button id="lb-next" onclick="lbNav(1)">›</button>
+  <div id="lb-cap"></div>
+</div>
+
+
+<section id="quiz">
+  <div class="inner" style="max-width:740px;">
+    <h2 class="s-head reveal">💭 Kitna Jaante Ho Mujhe?</h2>
+    <p class="s-sub reveal">Chhote chhote sawaal, sachche sachche jawaab — let's see! 🌸</p>
+    <div class="quiz-card reveal" id="quiz-card">
+      <div class="quiz-progress" id="qprogress"></div>
+      <div id="qbody"><div style="text-align:center;padding:20px;color:var(--mid);font-family:Quicksand,sans-serif;">Loading... 🌸</div></div>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <span class="footer-alien">👾</span>
+  Made with <span>💖</span> and real feelings &nbsp;·&nbsp; Sirf tumhare liye &nbsp;·&nbsp; Hamesha
+  <div class="footer-hearts">💕 🌸 ✨ 🌸 💕</div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+// mark active nav
+document.querySelectorAll('nav a').forEach(a=>{
+  if(a.getAttribute('href')==='quiz.html') a.classList.add('active');
+});
+
+(function(){
+  const QS=[
+    {q:'Hum pehli baar kab mile the? 📅',opts:['15 November 2021','20 November 2021','1 January 2022','5 March 2022'],ans:1,fc:'Haan! 20 November 2021 — woh din zindagi ka ek khaas mod tha 💖',fw:'Nahi yaar! 20 November 2021 tha — ek yadgaar din tha woh 🌸'},
+    {q:'Kya cheez Saloni ko sabse zyada pasand hai? 😊',opts:['Boring baatein sunna','Cute animals aur dil se baat karna','Akele rehna','Sirf cricket dekhna'],ans:1,fc:'Bilkul sahi! Genuine baat aur cute cheezein — yahi toh ho tum 💕',fw:'Nahi! Saloni ko genuine baat aur cute cheezein pasand hain 🐾'},
+    {q:'Agar Saloni ko ek emoji se describe karein? 🌸',opts:['😴','🌸','😡','🤖'],ans:1,fc:'Perfect! 🌸 — soft, khubsoorat, aur jab bhi dikhti hai dil khush ho jaata hai 💖',fw:'Nahi — 🌸 sahi tha! Exactly aise hi hai woh ✨'},
+    {q:'Saloni ki smile mein kya hota hai? 💫',opts:['Sirf ek expression','Poori duniya ki roshni','Akeli aawaz','Kuch nahi khaas'],ans:1,fc:'Exactly! Jab woh muskurati hai, lagta hai sab roshan ho gaya ho 🌟',fw:'Ek chance aur — Saloni ki smile mein poori duniya ki roshni hai 💛'},
+    {q:'Yeh surprise website kiske liye hai? 🎀',opts:['Kisi random insaan ke liye','Ek bahut khaas Saloni ke liye','Ek celebrity ke liye','Practice ke liye'],ans:1,fc:'Haan bilkul! Sirf aur sirf tumhare liye 💝',fw:'Nahi! Sirf ek khaas Saloni ke liye — aur woh tum ho! 💖'},
+  ];
+  let cur=0,score=0,answered=false;
+  function buildProg(){const el=document.getElementById('qprogress');if(!el)return;el.innerHTML=QS.map((_,i)=>`<div class="qp-dot ${i<cur?'done':i===cur?'current':''}"></div>`).join('');}
+  function render(){
+    const body=document.getElementById('qbody');if(!body)return;
+    if(cur>=QS.length){renderScore();return;}
+    answered=false;const q=QS[cur];buildProg();
+    body.innerHTML=`<div class="quiz-q-num">Sawaal ${cur+1} / ${QS.length}</div><div class="quiz-question">${q.q}</div><div class="quiz-options">${q.opts.map((o,i)=>`<button class="quiz-opt" id="qo${i}" onclick="qAns(${i})">${o}</button>`).join('')}</div><div class="quiz-feedback" id="qfb"></div><button class="quiz-next-btn" id="qnxt" onclick="qNext()">Agla Sawaal →</button>`;
+  }
+  window.qAns=function(idx){if(answered)return;answered=true;const q=QS[cur];document.querySelectorAll('.quiz-opt').forEach(o=>o.disabled=true);const fb=document.getElementById('qfb'),nxt=document.getElementById('qnxt');if(idx===q.ans){score++;document.getElementById('qo'+idx).classList.add('correct');fb.textContent='✅ '+q.fc;fb.className='quiz-feedback show fb-correct';}else{document.getElementById('qo'+idx).classList.add('wrong');document.getElementById('qo'+q.ans).classList.add('correct');fb.textContent='❌ '+q.fw;fb.className='quiz-feedback show fb-wrong';}if(nxt)nxt.classList.add('show');};
+  window.qNext=function(){cur++;render();};
+  function renderScore(){buildProg();const body=document.getElementById('qbody');const pct=Math.round((score/QS.length)*100);let em,ti,ms;if(pct===100){em='🏆';ti='Perfect Score!';ms='Tum sach mein bahut khaas ho — sab sahi pata tha! Tum hi perfect ho 💖';}else if(pct>=60){em='💖';ti='Bahut Acha!';ms='Itna toh pata hai — aur jo nahi pata, woh bhi dheere dheere jaanoge 🌸';}else{em='🌸';ti='Sweet Try!';ms='Score se kuch nahi hota — jo dil se jaante ho woh sab se zyada important hai 💕';}body.innerHTML=`<div class="quiz-score-wrap"><span class="qs-emoji">${em}</span><div class="qs-title">${score}/${QS.length} — ${ti}</div><div class="qs-msg">${ms}</div><button class="quiz-next-btn show" onclick="qRestart()">Phir Se Khelein 🔄</button></div>`;}
+  window.qRestart=function(){cur=0;score=0;answered=false;render();};
+  render();
+})();
+
+</script>
+</body>
+</html>

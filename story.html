@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌸 Hamari Kahani</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="fc"></canvas>
+<div id="cursor-outer"></div>
+<div id="cursor-inner"></div>
+<div id="cursor-emoji">🌸</div>
+
+<div class="sallu-sticker" id="sallu" onclick="salluClick()">
+  <span>🐱</span>
+  <span class="sallu-label">Sallu 🌸</span>
+</div>
+<div class="khi-bubble" id="khi-bubble">
+  <span id="khi-text">Khi khi khi! 😸</span>
+  <div class="khi-bubble-arrow"></div>
+</div>
+
+<nav id="nav">
+  <a href="index.html">🏠 Home</a>
+  <a href="story.html">🌸 Story</a>
+  <a href="gallery.html">🖼️ Gallery</a>
+  <a href="together.html">🫶 Hamare Pal</a>
+  <a href="message.html">💌 Letter</a>
+  <a href="quiz.html">💭 Quiz</a>
+  <a href="yaadein.html">🫙 Yaadein</a>
+  <a href="waqt.html">⏳ Waqt</a>
+  <a href="duaayein.html">🌟 Duaayein</a>
+  <a href="surprise.html">💍 Surprise</a>
+</nav>
+
+<button id="music-btn" onclick="toggleMusic()">🎵</button>
+<button id="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<audio id="bg-music" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<div id="lightbox">
+  <button id="lb-close" onclick="closeLightbox()">✕</button>
+  <button id="lb-prev" onclick="lbNav(-1)">‹</button>
+  <img id="lb-img" src="" alt="">
+  <button id="lb-next" onclick="lbNav(1)">›</button>
+  <div id="lb-cap"></div>
+</div>
+
+
+<section id="story">
+  <div class="inner">
+    <h2 class="s-head reveal">🌸 Hamari Kahani</h2>
+    <p class="s-sub reveal">Chhoti chhoti yaadein, badi badi baatein — sab yahan hain.</p>
+    <div class="story-frame reveal">
+      <div class="timeline">
+        <div class="t-item"><div class="t-date">Chapter<br>Ek</div><div class="t-content"><h3>Pehli Baar ✨</h3><p>Jab pehli baar tumse baat hui, toh ek alag hi ehsaas tha. Normal dinon mein kuch khaas hua — tumhari ek smile, ek baat — aur sab badal gaya. Woh moment dil mein aaj bhi taaza hai.</p></div></div>
+        <div class="t-div"></div>
+        <div class="t-item"><div class="t-date">Chapter<br>Do</div><div class="t-content"><h3>Dheere Dheere 🌱</h3><p>Woh baatein jo raat ko shuru hoti thi aur subah tak khatam nahi hoti thi. Tumhara hasna, tumhare andaaz, tumhara sab kuch notice hone laga. Aur phir ek din samajh aaya ki yeh sirf dosti nahi hai.</p></div></div>
+        <div class="t-div"></div>
+        <div class="t-item"><div class="t-date">Chapter<br>Teen</div><div class="t-content"><h3>Jab Yaqeen Ho Gaya 💖</h3><p>Ek woh pal tha — chup chup sa, bina shor ke — jab dil ne kaha ki yeh insaan khaas hai. Tumhare hote sab aasaan lagta hai. Duniya thodi aur khubsoorat dikhti hai.</p></div></div>
+        <div class="t-div"></div>
+        <div class="t-item"><div class="t-date">Chapter<br>Ab</div><div class="t-content"><h3>Yeh Waqt, Yeh Pal 🎀</h3><p>Ab bhi likhna baaki hai. Aage aur bhi moments hain — unplanned, unscripted. Aur har us pal mein tumhara saath chahiye. Bas itna hi maangte hain.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <span class="footer-alien">👾</span>
+  Made with <span>💖</span> and real feelings &nbsp;·&nbsp; Sirf tumhare liye &nbsp;·&nbsp; Hamesha
+  <div class="footer-hearts">💕 🌸 ✨ 🌸 💕</div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+// mark active nav
+document.querySelectorAll('nav a').forEach(a=>{
+  if(a.getAttribute('href')==='story.html') a.classList.add('active');
+});
+
+</script>
+</body>
+</html>
